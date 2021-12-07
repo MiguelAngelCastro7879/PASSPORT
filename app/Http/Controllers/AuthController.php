@@ -56,11 +56,17 @@ class AuthController extends Controller
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
 
+        User::where('email', $request->email)->update(["remember_me" => $request->remember_me, "remember_token" => $tokenResult->accessToken]);
+//        $user->remember_me = $request->remember_me;
+//        $user->remember_token = $tokenResult->accessToken;
+        
+        
         return response()->json([
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()
         ]);
+
     }
 
     /**
