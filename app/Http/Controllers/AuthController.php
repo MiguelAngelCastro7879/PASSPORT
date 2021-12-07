@@ -19,15 +19,18 @@ class AuthController extends Controller
             'password' => 'required|string'
         ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
+      
+        $user =new User;
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->password=bcrypt($request->password);
 
-        return response()->json([
-            'message' => 'Successfully created user!'
-        ], 201);
+        if($user->save()){
+            return response()->json([
+                'message' => 'Successfully created user!'
+            ], 201);
+        }
+
     }
 
     /**
@@ -56,7 +59,7 @@ class AuthController extends Controller
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
 
-        User::where('email', $request->email)->update(["remember_me" => $request->remember_me, "remember_token" => $tokenResult->accessToken]);
+        User::where('email', $request->email)->update(["remember_me" => $request->remember_me]);
 //        $user->remember_me = $request->remember_me;
 //        $user->remember_token = $tokenResult->accessToken;
         

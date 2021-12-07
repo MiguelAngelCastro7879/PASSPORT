@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DhtController;
+use App\Http\Controllers\ProximidadController;
+use App\Http\Controllers\PuertaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +33,30 @@ Route::group([
     ], function() {
         Route::get('logout', [AuthController::class , 'logout']);
         Route::get('user', [AuthController::class , 'user']);
+        
+        
+        
+        
+        
+        
+        Route::prefix('puerta')->group(function () {
+            Route::get( '/datos', [PuertaController::class, 'datos']);
+            Route::get( '/last', [PuertaController::class, 'ultimoDato']);
+            Route::get( '/controller', [PuertaController::class, 'controlador']);
+            Route::get( '/fechas', [PuertaController::class, 'fechas']);
+        });
+        
+        Route::prefix('distancia')->group(function () {
+            Route::get( '/datos', [ProximidadController::class, 'datos']);
+            Route::get( '/last', [ProximidadController::class, 'ultimoDato']);
+        });
+        Route::prefix('dht')->group(function () {
+            Route::get( 'temperatura/datos', [DhtController::class, 'datosTemperatura']);
+            Route::get( 'temperatura/last', [DhtController::class, 'ultimoDatoTemperatura']);
+            Route::get( 'humedad/datos', [DhtController::class, 'datosHumedad']);
+            Route::get( 'humedad/last', [DhtController::class, 'ultimoDatoHumedad']);
+        });
     });
+
+    
 });
