@@ -35,10 +35,7 @@ class DhtController extends Controller
 
         $datos=json_decode($response);
 
-        return  response()->json([
-            'status' => 'ok',
-            'datos' => $datos
-        ],200);
+        return  response()->json($datos,200);
     }
 
     public function datosHumedad(Request $request){
@@ -69,9 +66,6 @@ class DhtController extends Controller
 
         $datos=json_decode($response);
 
-        return  response()->json([
-            'status' => 'ok',
-            'datos' => $datos
-        ],200);
+        return  response()->json( $datos,200);
     }
 }
