@@ -4,20 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\Token;
 
 class DhtController extends Controller
 {
     public function datosTemperatura(Request $request){
         
-        $response=Http::withHeaders(['X-AIO-key'=>$request->token
+        $token = Token::getToken();
+        $response=Http::withHeaders(['X-AIO-key'=>$token
 
 
         ])->get('https://io.adafruit.com/api/v2/MiguelAngel7879/feeds/temperatura/data');
 
         $datos=json_decode($response);
 
-        //return $datos;
-        
         return  response()->json([
             'status' => 'ok',
             'datos' => $datos
@@ -28,7 +28,9 @@ class DhtController extends Controller
 
     public function ultimoDatoTemperatura(Request $request){
         
-        $response=Http::withHeaders(['X-AIO-key'=>$request->token
+        $token = Token::getToken();
+        $response=Http::withHeaders(['X-AIO-key'=>$token
+
 
 
         ])->get('https://io.adafruit.com/api/v2/MiguelAngel7879/feeds/temperatura/data/last');
@@ -40,7 +42,9 @@ class DhtController extends Controller
 
     public function datosHumedad(Request $request){
         
-        $response=Http::withHeaders(['X-AIO-key'=>$request->token
+        $token = Token::getToken();
+        $response=Http::withHeaders(['X-AIO-key'=>$token
+
 
 
         ])->get('https://io.adafruit.com/api/v2/MiguelAngel7879/feeds/humedad/data');
@@ -59,7 +63,9 @@ class DhtController extends Controller
 
     public function ultimoDatoHumedad(Request $request){
         
-        $response=Http::withHeaders(['X-AIO-key'=>$request->token
+        $token = Token::getToken();
+        $response=Http::withHeaders(['X-AIO-key'=>$token
+
 
 
         ])->get('https://io.adafruit.com/api/v2/MiguelAngel7879/feeds/humedad/data/last');
