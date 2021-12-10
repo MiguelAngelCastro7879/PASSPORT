@@ -4,22 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use App\Models\Token;
 
 class ProximidadController extends Controller
 {
     public function datos(Request $request){
         
-        $token = Token::getToken();
-        $response=Http::withHeaders(['X-AIO-key'=>$token
+        
+        $response=Http::withHeaders(['X-AIO-key'=>$request->token
 
 
-
-        ])->get('https://io.adafruit.com/api/v2/MiguelAngel7879/feeds/distancia/data');
+        ])->get('https://io.adafruit.com/api/v2/fermurilllo/feeds/distancia/data');
 
         $datos=json_decode($response);
-
-        //return $datos;
         
         return  response()->json([
             'status' => 'ok',
@@ -31,12 +27,10 @@ class ProximidadController extends Controller
 
     public function ultimoDato(Request $request){
         
-        $token = Token::getToken();
-        $response=Http::withHeaders(['X-AIO-key'=>$token
+        $response=Http::withHeaders(['X-AIO-key'=>$request->token
 
 
-
-        ])->get('https://io.adafruit.com/api/v2/MiguelAngel7879/feeds/distancia/data/last');
+        ])->get('https://io.adafruit.com/api/v2/fermurilllo/feeds/distancia/data/last');
 
         $datos=json_decode($response);
 

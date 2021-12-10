@@ -4,16 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use App\Models\Token;
 
 class PuertaController extends Controller
 {
     public function datos(Request $request){
         
-        $token = Token::getToken();
-        $response=Http::withHeaders(['X-AIO-key'=>$token
+        $response=Http::withHeaders(['X-AIO-key'=>$request->token
 
-        ])->get('https://io.adafruit.com/api/v2/MiguelAngel7879/feeds/led/data');
+
+        ])->get('https://io.adafruit.com/api/v2/fermurilllo/feeds/servomotor/data');
 
         $datos=json_decode($response);
 
@@ -27,10 +26,9 @@ class PuertaController extends Controller
 
     public function ultimoDato(Request $request){
         
-        $token = Token::getToken();
-        $response=Http::withHeaders(['X-AIO-key'=>$token
+        $response=Http::withHeaders(['X-AIO-key'=>$request->token
 
-        ])->get('https://io.adafruit.com/api/v2/MiguelAngel7879/feeds/led/data/last');
+        ])->get('https://io.adafruit.com/api/v2/fermurilllo/feeds/servomotor/data/last');
 
         $datos=json_decode($response);
 
@@ -40,11 +38,10 @@ class PuertaController extends Controller
 
     public function controlador(Request $request){
         
-        $token = Token::getToken();
-        $response=Http::withHeaders(['X-AIO-key'=>$token
+        $response=Http::withHeaders(['X-AIO-key'=>$request->token
 
 
-        ])->post('https://io.adafruit.com/api/v2/MiguelAngel7879/feeds/led/data',[
+        ])->post('https://io.adafruit.com/api/v2/fermurilllo/feeds/servomotor/data',[
 
             'value'=>$request->value
         ]);

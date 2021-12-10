@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DhtController;
 use App\Http\Controllers\ProximidadController;
 use App\Http\Controllers\PuertaController;
+use App\Http\Controllers\SonidoController;
+use App\Http\Controllers\ReleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,22 +42,42 @@ Route::group([
         
         
         Route::prefix('puerta')->group(function () {
-            Route::get( '/datos', [PuertaController::class, 'datos']);
-            Route::get( '/last', [PuertaController::class, 'ultimoDato']);
-            Route::get( '/controller', [PuertaController::class, 'controlador']);
-            Route::get( '/fechas', [PuertaController::class, 'fechas']);
+            Route::post( '/datos', [PuertaController::class, 'datos']);
+            Route::post( '/last', [PuertaController::class, 'ultimoDato']);
+            Route::post( '/controller', [PuertaController::class, 'controlador']);
         });
         
         Route::prefix('distancia')->group(function () {
-            Route::get( '/datos', [ProximidadController::class, 'datos']);
-            Route::get( '/last', [ProximidadController::class, 'ultimoDato']);
+            Route::post( '/datos', [ProximidadController::class, 'datos']);
+            Route::post( '/last', [ProximidadController::class, 'ultimoDato']);
         });
         Route::prefix('dht')->group(function () {
-            Route::get( 'temperatura/datos', [DhtController::class, 'datosTemperatura']);
-            Route::get( 'temperatura/last', [DhtController::class, 'ultimoDatoTemperatura']);
-            Route::get( 'humedad/datos', [DhtController::class, 'datosHumedad']);
-            Route::get( 'humedad/last', [DhtController::class, 'ultimoDatoHumedad']);
+            Route::post( 'temperatura/datos', [DhtController::class, 'datosTemperatura']);
+            Route::post( 'temperatura/last', [DhtController::class, 'ultimoDatoTemperatura']);
+            Route::post( 'humedad/datos', [DhtController::class, 'datosHumedad']);
+            Route::post( 'humedad/last', [DhtController::class, 'ultimoDatoHumedad']);
         });
+
+        Route::prefix('sonido')->group(function () {
+            Route::post( '/datos', [SonidoController::class, 'datos']);
+            Route::post( '/last', [SonidoController::class, 'ultimoDato']);
+        });
+        
+        Route::prefix('rele1')->group(function () {
+            Route::post( '/datos', [PuertaController::class, 'datosR1']);
+            Route::post( '/last', [PuertaController::class, 'ultimoDatoR1']);
+            Route::post( '/controller', [PuertaController::class, 'controladorR1']);
+        });
+        
+        
+        Route::prefix('rele2')->group(function () {
+            Route::post( '/datos', [PuertaController::class, 'datosR2']);
+            Route::post( '/last', [PuertaController::class, 'ultimoDatoR2']);
+            Route::post( '/controller', [PuertaController::class, 'controladorR2']);
+        });
+        
+
+
     });
 
     
